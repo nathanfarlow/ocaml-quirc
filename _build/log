@@ -1,0 +1,5 @@
+# dune init project quirc
+# OCAMLPARAM: unset
+# Shared cache: disabled
+# Workspace root: /home/nathan/git/quirc
+# Auto-detected concurrency: 32
