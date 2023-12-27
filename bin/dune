@@ -1,4 +1,4 @@
 (executable
- (public_name quirc)
+ (public_name foo)
  (name main)
- (libraries quirc))
+ (libraries foo))
