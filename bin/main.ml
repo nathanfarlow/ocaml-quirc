@@ -1,1 +1,1 @@
-let () = Foo.go ()
+let () = Quirc.go ()

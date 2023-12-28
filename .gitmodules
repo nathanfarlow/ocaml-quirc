@@ -1,0 +1,3 @@
+[submodule "lib/quirc"]
+	path = lib/quirc
+	url = https://github.com/dlbeer/quirc

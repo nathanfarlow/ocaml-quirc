@@ -1,37 +1,36 @@
 (library
- (name foo)
+ (name quirc)
  (libraries ctypes ctypes.foreign)
  (ctypes
-  (external_library_name libfoo)
+  (external_library_name quirc)
   (build_flags_resolver
    (vendored
-    (c_flags :standard -Wall -Werror -Ilibfoo)
-    (c_library_flags :standard -Wall -Werror -Ilibfoo)))
+    (c_flags :standard -Wall -Werror -Iquirc)
+    (c_library_flags :standard -Wall -Werror)))
   (headers
-   (include "foo.h"))
+   (include "lib/quirc.h"))
   (type_description
    (instance Types)
    (functor Type_description))
   (function_description
-   ; Set this to sequential if the library is not thread-safe
    (concurrency unlocked)
    (instance Functions)
    (functor Function_description))
   (generated_types Types_generated)
   (generated_entry_point C))
- (foreign_archives foo))
+ (foreign_archives quirc))
 
-(data_only_dirs libfoo)
+(data_only_dirs quirc)
 
 (rule
  (deps
-  (source_tree libfoo))
- (targets libfoo.a dllfoo.so)
+  (source_tree quirc))
+ (targets libquirc.a dllquirc.so)
  (action
   (no-infer
    (progn
     (chdir
-     libfoo
+     quirc
      (run make))
-    (copy libfoo/libfoo.a libfoo.a)
-    (copy libfoo/libfoo.so dllfoo.so)))))
+    (copy quirc/libquirc.a libquirc.a)
+    (copy quirc/libquirc.so.1.2 dllquirc.so)))))
