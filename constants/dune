@@ -1,0 +1,18 @@
+(library
+ (public_name quirc.constants)
+ (name constants)
+ (libraries ctypes ctypes.foreign)
+ (ctypes
+  (external_library_name quirc)
+  (build_flags_resolver
+   (vendored
+    (c_flags :standard -Wall -Werror -I../quirc)))
+  (headers
+   (include "lib/quirc.h"))
+  (type_description
+   (instance Types)
+   (functor Type_description))
+  (function_description
+   (instance Functions)
+   (functor Function_description))
+  (generated_entry_point C)))

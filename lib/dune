@@ -1,12 +1,12 @@
 (library
  (public_name quirc)
  (name quirc)
- (libraries ctypes ctypes.foreign)
+ (libraries constants ctypes ctypes.foreign)
  (ctypes
   (external_library_name quirc)
   (build_flags_resolver
    (vendored
-    (c_flags :standard -Wall -Werror -Iquirc)
+    (c_flags :standard -Wall -Werror -I../quirc)
     (c_library_flags :standard -Wall -Werror)))
   (headers
    (include "lib/quirc.h"))
@@ -21,17 +21,15 @@
   (generated_entry_point C))
  (foreign_archives quirc))
 
-(data_only_dirs quirc)
-
 (rule
  (deps
-  (source_tree quirc))
+  (source_tree ../quirc))
  (targets libquirc.a dllquirc.so)
  (action
   (no-infer
    (progn
     (chdir
-     quirc
+     ../quirc
      (run make))
-    (copy quirc/libquirc.a libquirc.a)
-    (copy quirc/libquirc.so.1.2 dllquirc.so)))))
+    (copy ../quirc/libquirc.a libquirc.a)
+    (copy ../quirc/libquirc.so.1.2 dllquirc.so)))))
