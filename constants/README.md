@@ -1,5 +1,5 @@
 This library exists to work around a limitation with ctypes which prevents us
-from declaring the type of an array whose length is a macro. Now we can do
+from declaring the type of an array whose length is a named constant. Now we can do
 something like the following elsewhere:
 
 ```ocaml
