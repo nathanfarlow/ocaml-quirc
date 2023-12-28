@@ -3,17 +3,12 @@
  (libraries ctypes ctypes.foreign)
  (ctypes
   (external_library_name libfoo)
-  (build_flags_resolver (vendored
-                         (c_flags
-                           :standard
-                           -Wall -Werror
-                           -Ilibfoo)
-                         (c_library_flags
-                           :standard
-                           -Wall -Werror
-                           -Ilibfoo)
-  ))
-  (headers (include "foo.h"))
+  (build_flags_resolver
+   (vendored
+    (c_flags :standard -Wall -Werror -Ilibfoo)
+    (c_library_flags :standard -Wall -Werror -Ilibfoo)))
+  (headers
+   (include "foo.h"))
   (type_description
    (instance Types)
    (functor Type_description))
@@ -24,16 +19,19 @@
    (functor Function_description))
   (generated_types Types_generated)
   (generated_entry_point C))
- (foreign_archives foo)
-)
+ (foreign_archives foo))
 
 (data_only_dirs libfoo)
-(rule
- (deps (source_tree libfoo))
- (targets libfoo.a dllfoo.so)
- (action (no-infer (progn
-                    (chdir libfoo (run make))
-                    (copy libfoo/libfoo.a libfoo.a)
-                    (copy libfoo/libfoo.so dllfoo.so)
-))))
 
+(rule
+ (deps
+  (source_tree libfoo))
+ (targets libfoo.a dllfoo.so)
+ (action
+  (no-infer
+   (progn
+    (chdir
+     libfoo
+     (run make))
+    (copy libfoo/libfoo.a libfoo.a)
+    (copy libfoo/libfoo.so dllfoo.so)))))
