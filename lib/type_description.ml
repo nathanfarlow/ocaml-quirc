@@ -58,6 +58,19 @@ module Types (F : Ctypes.TYPE) = struct
         ]
   end
 
+  module Code = struct
+    type t
+
+    let t : t structure typ = structure "quirc_code"
+    let corners = field t "corners" (array 4 Point.t)
+    let size = field t "size" int
+
+    let cell_bitmap =
+      field t "cell_bitmap" (array (Int64.to_int Constants.max_bitmap) uint8_t)
+
+    let () = seal t
+  end
+
   module Data = struct
     type t
 

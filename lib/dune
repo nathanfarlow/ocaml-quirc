@@ -6,7 +6,7 @@
   (external_library_name quirc)
   (build_flags_resolver
    (vendored
-    (c_flags :standard -Wall -Werror -I../quirc)
+    (c_flags :standard -Wall -Werror -Wno-discarded-qualifiers -I../quirc)
     (c_library_flags :standard -Wall -Werror)))
   (headers
    (include "lib/quirc.h"))
