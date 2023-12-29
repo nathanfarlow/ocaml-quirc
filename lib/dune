@@ -1,7 +1,7 @@
 (library
  (public_name quirc)
  (name quirc)
- (libraries constants ctypes ctypes.foreign)
+ (libraries constants ctypes ctypes.foreign base)
  (ctypes
   (external_library_name quirc)
   (build_flags_resolver

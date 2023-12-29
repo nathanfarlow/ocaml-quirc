@@ -1,34 +1,32 @@
-open! Ctypes
+open Ctypes
 module Types = Types_generated
 
 module Functions (F : Ctypes.FOREIGN) = struct
-  open! F
+  open F
 
-  let quirc_version = foreign "quirc_version" (void @-> returning string)
-  let quirc_new = foreign "quirc_new" (void @-> returning (ptr Types.Quirc.t))
+  let version = foreign "quirc_version" (void @-> returning string)
+  let new_ = foreign "quirc_new" (void @-> returning (ptr_opt Types.Quirc.t))
+  let destroy = foreign "quirc_destroy" (ptr Types.Quirc.t @-> returning void)
 
-  let quirc_destroy =
-    foreign "quirc_destroy" (ptr Types.Quirc.t @-> returning void)
-
-  let quirc_resize =
+  let resize =
     foreign "quirc_resize" (ptr Types.Quirc.t @-> int @-> int @-> returning int)
 
-  let quirc_begin =
+  let begin_ =
     foreign "quirc_begin"
       (ptr Types.Quirc.t @-> ptr int @-> ptr int @-> returning (ptr uint8_t))
 
-  let quirc_end = foreign "quirc_end" (ptr Types.Quirc.t @-> returning void)
+  let end_ = foreign "quirc_end" (ptr Types.Quirc.t @-> returning void)
 
-  let quirc_strerror =
+  let strerror =
     foreign "quirc_strerror" (Types.Decode_error.t @-> returning string)
 
-  let quirc_count = foreign "quirc_count" (ptr Types.Quirc.t @-> returning int)
+  let count = foreign "quirc_count" (ptr Types.Quirc.t @-> returning int)
 
-  let quirc_extract =
+  let extract =
     foreign "quirc_extract"
       (ptr Types.Quirc.t @-> int @-> ptr Types.Code.t @-> returning void)
 
-  let quirc_decode =
+  let decode =
     foreign "quirc_decode"
       (ptr Types.Code.t @-> ptr Types.Data.t @-> returning Types.Decode_error.t)
 
