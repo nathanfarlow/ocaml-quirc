@@ -27,6 +27,7 @@ module Code : sig
   val version : t -> int
   val ecc_level : t -> int
   val mask : t -> int
+  val eci : t -> int
 
   (** Highest valued data type in the QR code *)
   val data_type : t -> int
@@ -34,9 +35,6 @@ module Code : sig
   (**  Data payload. For the Kanji datatype, payload is encoded as Shift-JIS.
        For all other datatypes, payload is ASCII text. *)
   val payload : t -> string
-
-  (** ECI assignment number *)
-  val eci : t -> int
 end
 
 (** Decode a QR code from an image. Returns a list of all QR codes found in the image. *)

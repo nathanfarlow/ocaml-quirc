@@ -1,7 +1,6 @@
 open Core
 
-(* You can probably use imagelib or something, but I wanted to experiment with
-   angstrom, lol *)
+(* You can probably use imagelib or something irl *)
 let parse_pgm s =
   let open Angstrom in
   let whitespace = skip_while Char.is_whitespace in
@@ -16,17 +15,17 @@ let parse_pgm s =
       (lex integer)
       (lex integer)
   in
-  let data = many (lex integer >>| Float.of_int) in
+  let pixels = many (lex integer >>| Float.of_int) in
   let pgm =
     header
     >>= fun (width, height, max_val) ->
-    data
-    >>= fun data ->
-    let data =
-      List.map data ~f:(fun x -> Float.(iround_exn (x /. of_int max_val *. 255.)))
+    pixels
+    >>= fun pixels ->
+    let pixels =
+      List.map pixels ~f:(fun x -> Float.(iround_exn (x /. of_int max_val *. 255.)))
       |> Array.of_list
     in
-    return (Quirc.Image.create data ~width ~height)
+    return (Quirc.Image.create pixels ~width ~height)
   in
   parse_string ~consume:All pgm s
 ;;

@@ -76,9 +76,9 @@ module Code = struct
     let data_type = getf data T.Data.data_type in
     let eci = getf data T.Data.eci |> Unsigned.UInt32.to_int in
     let payload =
-      let payload = getf data T.Data.payload in
+      let payload = getf data T.Data.payload |> CArray.to_list in
       let payload_len = getf data T.Data.payload_len in
-      List.take (CArray.to_list payload) payload_len
+      List.take payload payload_len
       |> List.map ~f:(fun c -> Unsigned.UInt8.to_int c |> Char.of_int_exn)
       |> String.of_char_list
     in
@@ -86,9 +86,9 @@ module Code = struct
   ;;
 end
 
-let decode (image : Image.t) =
+let decode image =
   let qr = F.new_ () |> Option.value_exn in
-  let width = image.width in
+  let width = image.Image.width in
   let height = image.height in
   assert (F.resize qr width height = 0);
   let _width = allocate int 0 in
