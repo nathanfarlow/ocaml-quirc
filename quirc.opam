@@ -30,4 +30,4 @@ build: [
     "@doc" {with-doc}
   ]
 ]
-dev-repo: "git+https://github.com/nathanfarlow/ocaml-quirc\"
+dev-repo: "git+https://github.com/nathanfarlow/ocaml-quirc"
