@@ -1,3 +1,5 @@
 (executable
  (name example)
- (libraries quirc))
+ (libraries quirc core angstrom core_unix.command_unix)
+ (preprocess
+  (pps ppx_jane)))
