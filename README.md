@@ -1,6 +1,6 @@
 # ocaml-quirc
 
-OCaml bindings for [quirc](https://github.com/dlbeer/quirc). Now you can decode QR codes in OCaml 🐪
+OCaml bindings for [quirc](https://github.com/dlbeer/quirc). Now you can extract and decode QR codes in OCaml 🐪
 
 ## Usage
 See [lib/quirc.mli](lib/quirc.mli) for the API
