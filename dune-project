@@ -7,22 +7,20 @@
 (generate_opam_files true)
 
 (source
- (github username/reponame))
+ (github nathanfarlow/ocaml-quirc))
 
-(authors "Author Name")
+(authors "Nathan Farlow")
 
-(maintainers "Maintainer Name")
+(maintainers "Nathan Farlow")
 
-(license LICENSE)
+(license MIT)
 
-(documentation https://url/to/documentation)
+(documentation https://github.com/nathanfarlow/ocaml-quirc)
 
 (package
  (name quirc)
- (synopsis "A short synopsis")
- (description "A longer description")
- (depends ocaml dune)
+ (synopsis "OCaml bindings for quirc, a QR code decoder library")
+ (description "Decode QR codes with OCaml!")
+ (depends ocaml dune base ctypes)
  (tags
-  (topics "to describe" your project)))
-
-; See the complete stanza docs at https://dune.readthedocs.io/en/stable/dune-files.html#dune-project
+  (quirc QR decoder reader)))
