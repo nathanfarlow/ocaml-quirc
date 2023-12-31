@@ -12,5 +12,5 @@ See [example/example.ml](example/example.ml) for an example. To run the example:
 ```bash
 git clone --recurse-submodules https://github.com/nathanfarlow/ocaml-quirc.git
 cd ocaml-quirc
-dune build && dune exec _build/default/example/example.exe example/hello.pgm
+dune build && dune exec example/example.exe example/hello.pgm
 ```
