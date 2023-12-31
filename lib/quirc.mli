@@ -1,9 +1,9 @@
 module Image : sig
   type t
 
-  (** Create a new image with grayscale pixels (0-255). One int per pixel. Row
+  (** Create a new image with grayscale pixels (0-255). One char per pixel. Row
       major. *)
-  val create : int array -> width:int -> height:int -> t
+  val create : char array -> width:int -> height:int -> t
 end
 
 module Point : sig

@@ -5,7 +5,7 @@ module F = C.Functions
 
 module Image = struct
   type t =
-    { pixels : int array
+    { pixels : char array
     ; width : int
     ; height : int
     }
@@ -13,7 +13,6 @@ module Image = struct
   let create pixels ~width ~height =
     let pixels = Array.copy pixels in
     assert (Array.length pixels = width * height);
-    Array.iter pixels ~f:(fun pixel -> assert (pixel >= 0 && pixel <= 255));
     { pixels; width; height }
   ;;
 end
@@ -98,7 +97,8 @@ let decode image =
   for y = 0 to height - 1 do
     for x = 0 to width - 1 do
       let offset = (y * width) + x in
-      image_buffer +@ offset <-@ Unsigned.UInt8.of_int image.pixels.(offset)
+      image_buffer +@ offset
+      <-@ (image.pixels.(offset) |> Char.to_int |> Unsigned.UInt8.of_int)
     done
   done;
   F.end_ qr;

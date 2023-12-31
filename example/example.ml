@@ -22,7 +22,8 @@ let parse_pgm s =
     pixels
     >>= fun pixels ->
     let pixels =
-      List.map pixels ~f:(fun x -> Float.(iround_exn (x /. of_int max_val *. 255.)))
+      List.map pixels ~f:(fun x ->
+        Float.(iround_exn (x /. of_int max_val *. 255.) |> Char.of_int_exn))
       |> Array.of_list
     in
     return (Quirc.Image.create pixels ~width ~height)
