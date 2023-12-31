@@ -4,8 +4,8 @@ module T = C.Types
 module F = C.Functions
 
 module Image = struct
-  type t =
-    { pixels : char array
+  type 'a t =
+    { pixels : 'a array
     ; width : int
     ; height : int
     }
@@ -15,6 +15,11 @@ module Image = struct
     assert (Array.length pixels = width * height);
     { pixels; width; height }
   ;;
+
+  let get t ~x ~y = t.pixels.((y * t.width) + x)
+  let set t ~x ~y v = t.pixels.((y * t.width) + x) <- v
+  let width t = t.width
+  let height t = t.height
 end
 
 module Point = struct
@@ -27,7 +32,7 @@ end
 module Code = struct
   type t =
     { corners : Point.t list
-    ; cell_bitmap : bool array array
+    ; cell_bitmap : bool Image.t
     ; version : int
     ; ecc_level : int
     ; mask : int
@@ -53,7 +58,7 @@ module Code = struct
     in
     let cell_bitmap =
       let size = getf code T.Code.size in
-      let cell_bitmap = Array.make_matrix ~dimx:size ~dimy:size false in
+      let cell_bitmap = Array.create ~len:(size * size) false in
       let pixels = getf code T.Code.cell_bitmap in
       for y = 0 to size - 1 do
         for x = 0 to size - 1 do
@@ -64,10 +69,10 @@ module Code = struct
             |> ( land ) (1 lsl (i land 7))
             |> ( <> ) 0
           in
-          cell_bitmap.(y).(x) <- is_black
+          cell_bitmap.(i) <- is_black
         done
       done;
-      cell_bitmap
+      Image.create cell_bitmap ~width:size ~height:size
     in
     let version = getf data T.Data.version in
     let ecc_level = getf data T.Data.ecc_level in

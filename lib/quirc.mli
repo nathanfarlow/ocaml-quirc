@@ -1,9 +1,13 @@
 module Image : sig
-  type t
+  type 'a t
 
-  (** Create a new image with grayscale pixels (0-255). One char per pixel. Row
-      major. *)
-  val create : char array -> width:int -> height:int -> t
+  (** Row major, one 'a per pixel *)
+  val create : 'a array -> width:int -> height:int -> 'a t
+
+  val get : 'a t -> x:int -> y:int -> 'a
+  val set : 'a t -> x:int -> y:int -> 'a -> unit
+  val width : 'a t -> int
+  val height : 'a t -> int
 end
 
 module Point : sig
@@ -21,7 +25,7 @@ module Code : sig
 
   (** 2D array of QR code's pixels. true when black, false when white. Row
       major. *)
-  val cell_bitmap : t -> bool array array
+  val cell_bitmap : t -> bool Image.t
 
   (* Various parameters of the QR code *)
   val version : t -> int
@@ -37,5 +41,6 @@ module Code : sig
   val payload : t -> string
 end
 
-(** Decode a QR code from an image. Returns a list of all QR codes found in the image. *)
-val decode : Image.t -> Code.t list
+(** Decode a QR code from a grayscale image. Returns a list of all QR codes
+    found in the image. *)
+val decode : char Image.t -> Code.t list
